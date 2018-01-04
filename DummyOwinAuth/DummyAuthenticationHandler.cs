@@ -20,6 +20,7 @@ namespace DummyOwinAuth
             var identity = new ClaimsIdentity(Options.SignInAsAuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, Options.UserId, null, Options.AuthenticationType));
             identity.AddClaim(new Claim(ClaimTypes.Name, Options.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Email, "gunni@vettvangur.is"));
 
             var properties = Options.StateDataFormat.Unprotect(Request.Query["state"]);
 
@@ -54,6 +55,7 @@ namespace DummyOwinAuth
 
         public override async Task<bool> InvokeAsync()
         {
+
             // This is always invoked on each request. For passive middleware, only do anything if this is
             // for our callback path when the user is redirected back from the authentication provider.
             if (Options.CallbackPath.HasValue && Options.CallbackPath == Request.Path)
